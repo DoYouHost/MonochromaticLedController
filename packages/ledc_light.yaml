@@ -1,0 +1,39 @@
+---
+# Reusable Monochromatic LED Light Template
+# Supports templating with vars to define multiple LED lights
+#
+# Usage in main config:
+#   packages:
+#     light_1: !include
+#       file: packages/led_light.yaml
+#       vars:
+#         name: "Light 1"
+#         id: "light_1"
+#         pin: GPIO21
+#         frequency: "19531Hz"
+
+defaults:
+  name: "Light"
+  id: "light"
+  pin: GPIO21
+  frequency: "19531Hz"
+  min_power: 0.0
+  max_power: 1.0
+  zero_means_zero: true
+  restore_mode: RESTORE_DEFAULT_OFF
+
+output:
+  - platform: ledc
+    pin: ${pin}
+    id: led_output_${id}
+    frequency: ${frequency}
+    min_power: ${min_power}
+    max_power: ${max_power}
+    zero_means_zero: ${zero_means_zero}
+
+light:
+  - platform: monochromatic
+    name: "${name}"
+    output: led_output_${id}
+    id: ${id}
+    restore_mode: ${restore_mode}

@@ -1,0 +1,83 @@
+---
+substitutions:
+  API_KEY: "OdC6M6XiJtudt5d4Zy5MsG7rdhi9ilFuys9AtxF2cGQ="
+  OTA_PASSWORD: "l1TqUN.ej.DBKHqgOcyGRkDP0BuW~RJ-"
+  PROD_MANIFEST_URL: "https://morganmlg.com/monochromaticLedController/manifest.json"
+  BETA_MANIFEST_URL: "https://morganmlg.com/monochromaticLedController/manifest-beta.json"
+  WEB_USERNAME: "esphome"
+  WEB_PASSWORD: "esphome"
+  AP_SSID: "Monochromatic LED Controller"
+  AP_PASSWORD: "esphome-fallback"
+
+esphome:
+  name: mlc-esp32-c3
+  friendly_name: "Monochromatic LED Controller"
+  comment: "ESP32-C3 based Monochromatic LED Controller"
+  name_add_mac_suffix: true
+  project:
+    name: "DoYouHost.MonochromaticLedController"
+    version: "dev"
+
+esp32:
+  variant: esp32c3
+  framework:
+    type: esp-idf
+    version: recommended
+
+packages:
+  DoYouHost/ESPHomeTemplates:
+    url: https://github.com/DoYouHost/ESPHomeTemplates
+    files: 
+      - basic.yaml
+      - debug.yaml
+      - updateBetaProdStaging.yaml
+      - webServer3.yaml
+      - wifiInfo.yaml
+    ref: main
+    refresh: 0d
+    
+  light_1: !include
+    file: packages/ledc_light.yaml
+    vars:
+      name: Light 1
+      id: light_1
+      pin: GPIO21
+
+wifi:
+  reboot_timeout: 15min
+  enable_btm: true
+  enable_rrm: true
+  ap: 
+    ssid: "${AP_SSID}"
+    password: "${AP_PASSWORD}"
+
+captive_portal:
+
+improv_serial:
+
+api:
+  reboot_timeout: 15min
+  encryption:
+    key: "${API_KEY}"
+
+ota:
+  - platform: esphome
+    password: "${OTA_PASSWORD}"
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO20
+      mode: INPUT_PULLUP
+      inverted: true
+    name: Light 1 Button
+    id: light_1_button
+    filters:
+      - delayed_on_off: 20ms
+    on_press:
+      then:
+        - light.toggle: light_1
+
+status_led:
+  pin:
+    number: GPIO8
