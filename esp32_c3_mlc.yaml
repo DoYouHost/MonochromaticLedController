@@ -41,7 +41,7 @@ packages:
     vars:
       name: Light 1
       id: light_1
-      pin: GPIO21
+      pin: GPIO5
 
 wifi:
   reboot_timeout: 15min
