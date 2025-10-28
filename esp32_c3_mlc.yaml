@@ -81,3 +81,4 @@ binary_sensor:
 status_led:
   pin:
     number: GPIO8
+    inverted: true
