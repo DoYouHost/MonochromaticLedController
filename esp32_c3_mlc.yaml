@@ -67,7 +67,7 @@ ota:
 binary_sensor:
   - platform: gpio
     pin:
-      number: GPIO20
+      number: GPIO6
       mode: INPUT_PULLUP
       inverted: true
     name: Light 1 Button
