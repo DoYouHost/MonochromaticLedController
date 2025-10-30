@@ -10,3 +10,5 @@
 ## .4
 - Added min_power and max_power settings to Light 1 configuration.
 - Added dashboard_import section to esp32_c3_mlc.yaml for easier dashboard integration.
+## .5
+- Status LED inversion setting corrected to false for proper operation.
