@@ -7,3 +7,6 @@
 - Status LED configuration updated to be inverted on GPIO8.
 ## .3
 - Button GPIO pin change from GPIO20 to GPIO6.
+## .4
+- Added min_power and max_power settings to Light 1 configuration.
+- Added dashboard_import section to esp32_c3_mlc.yaml for easier dashboard integration.

@@ -24,6 +24,10 @@ esp32:
     type: esp-idf
     version: recommended
 
+dashboard_import:
+  package_import_url: github://DoYouHost/MonochromaticLedController/esp32_c3_mlc.yaml@main
+  import_full_config: false
+
 packages:
   DoYouHost/ESPHomeTemplates:
     url: https://github.com/DoYouHost/ESPHomeTemplates
@@ -36,12 +40,16 @@ packages:
     ref: main
     refresh: 0d
     
-  light_1: !include
-    file: packages/ledc_light.yaml
-    vars:
-      name: Light 1
-      id: light_1
-      pin: GPIO5
+  light_1:
+    url: https://github.com/DoYouHost/ESPHomeTemplates
+    ref: main
+    refresh: 0d
+    files:
+      - path: packages/ledc_light.yaml
+        vars:
+          name: Light 1
+          id: light_1
+          pin: GPIO5
 
 wifi:
   reboot_timeout: 15min
@@ -67,7 +75,7 @@ ota:
 binary_sensor:
   - platform: gpio
     pin:
-      number: GPIO6
+      number: GPIO20
       mode: INPUT_PULLUP
       inverted: true
     name: Light 1 Button
