@@ -12,3 +12,5 @@
 - Added dashboard_import section to esp32_c3_mlc.yaml for easier dashboard integration.
 ## .5
 - Status LED inversion setting corrected to false for proper operation.
+## .6
+- GPIO pin for button changed from GPIO20 to GPIO6.
